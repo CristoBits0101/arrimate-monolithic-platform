@@ -12,6 +12,11 @@ export function useSettingsForm() {
   const [success, setSuccess] = useState<string | undefined>('')
 
   const form = useForm({
+    defaultValues: {
+      name: 'Cristo',
+      email: '',
+      password: '23123123'
+    },
     mode: 'onSubmit'
   })
 
@@ -21,7 +26,7 @@ export function useSettingsForm() {
     setSuccess('')
     console.log('Submitted Values:', values)
     startTransition(() => {
-      alert('Hola')
+      console.log('Start transition')
     })
   }
 
