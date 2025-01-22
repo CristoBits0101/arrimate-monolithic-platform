@@ -85,6 +85,7 @@ export default function SettingsForm() {
         <Form {...form}>
           <form className='space-y-8' onSubmit={form.handleSubmit(onSubmit)}>
             <div className='space-y-8 mt-8'>
+
               {/* Identity */}
               <FormFieldset legend={f('identity')}>
                 <NameInput name='name' isPending={isPending} />
@@ -92,6 +93,7 @@ export default function SettingsForm() {
                 <GenderInput name='gender' isPending={isPending} />
                 <BirthdateInput name='birthdate' isPending={isPending} />
               </FormFieldset>
+
               {/* Credentials */}
               <FormFieldset legend={f('credentials')}>
                 <div className='grid w-full h-fit grid-cols-[1fr,1fr] gap-2'>
@@ -102,6 +104,7 @@ export default function SettingsForm() {
                 <PasswordInput name='password' isPending={isPending} />
                 <NewPasswordInput name='newPassword' isPending={isPending} />
               </FormFieldset>
+
               {/* Location */}
               <FormFieldset legend={f('location')}>
                 <ZipCodeInput
@@ -120,6 +123,7 @@ export default function SettingsForm() {
                 <CityInput city={city} name='city' isPending={isPending} />
                 <AddressInput name='address' isPending={isPending} />
               </FormFieldset>
+
               {/* Vocation */}
               <FormFieldset legend={f('vocation')}>
                 <OccupationInput name='occupation' isPending={isPending} />
@@ -128,8 +132,12 @@ export default function SettingsForm() {
                 <PortfolioInput name='portfolio' isPending={isPending} />
               </FormFieldset>
             </div>
+
+            {/* Messages */}
             <FormError message={error} />
             <FormSuccess message={success} />
+
+            {/* Submit */}
             <div className='w-full h-fit flex justify-end'>
               <SubmitButton message={t('save')} isPending={isPending} />
             </div>
