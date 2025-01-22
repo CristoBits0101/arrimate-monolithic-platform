@@ -131,6 +131,7 @@ export default function SettingsForm() {
                 <SloganInput name='slogan' isPending={isPending} />
                 <PortfolioInput name='portfolio' isPending={isPending} />
               </FormFieldset>
+              
             </div>
 
             {/* Messages */}
