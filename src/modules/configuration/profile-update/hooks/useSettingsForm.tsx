@@ -13,9 +13,23 @@ export function useSettingsForm() {
 
   const form = useForm({
     defaultValues: {
-      name: 'Cristo',
+      name: '',
+      nickname: '',
+      gender: '',
+      birthdate: '',
+      phonePrefix: '',
+      phoneNumber: '',
       email: '',
-      password: '23123123'
+      password: '',
+      newPassword: '',
+      zipCode: '',
+      country: '',
+      city: '',
+      address: '',
+      occupation: '',
+      interests: '',
+      slogan: '',
+      portfolio: ''
     },
     mode: 'onSubmit'
   })
