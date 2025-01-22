@@ -84,8 +84,8 @@ export default function SettingsForm() {
       <FormProvider {...form}>
         <Form {...form}>
           <form className='space-y-8' onSubmit={form.handleSubmit(onSubmit)}>
-            <div className='space-y-8 mt-8'>
 
+            <div className='space-y-8 mt-8'>
               {/* Identity */}
               <FormFieldset legend={f('identity')}>
                 <NameInput name='name' isPending={isPending} />
@@ -123,7 +123,7 @@ export default function SettingsForm() {
                 <CityInput city={city} name='city' isPending={isPending} />
                 <AddressInput name='address' isPending={isPending} />
               </FormFieldset>
-
+              
               {/* Vocation */}
               <FormFieldset legend={f('vocation')}>
                 <OccupationInput name='occupation' isPending={isPending} />
@@ -131,7 +131,6 @@ export default function SettingsForm() {
                 <SloganInput name='slogan' isPending={isPending} />
                 <PortfolioInput name='portfolio' isPending={isPending} />
               </FormFieldset>
-              
             </div>
 
             {/* Messages */}
@@ -142,6 +141,7 @@ export default function SettingsForm() {
             <div className='w-full h-fit flex justify-end'>
               <SubmitButton message={t('save')} isPending={isPending} />
             </div>
+
           </form>
         </Form>
       </FormProvider>
