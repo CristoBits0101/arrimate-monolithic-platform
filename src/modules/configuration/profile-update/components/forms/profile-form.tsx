@@ -97,8 +97,8 @@ export default function SettingsForm() {
               {/* Credentials */}
               <FormFieldset legend={f('credentials')}>
                 <div className='grid w-full h-fit grid-cols-[1fr,1fr] gap-2'>
-                  <PhonePrefixInput name='prefix' isPending={isPending} />
-                  <PhoneNumberInput name='number' isPending={isPending} />
+                  <PhonePrefixInput name='phonePrefix' isPending={isPending} />
+                  <PhoneNumberInput name='phoneNumber' isPending={isPending} />
                 </div>
                 <EmailInput name='email' isPending={isPending} />
                 <PasswordInput name='password' isPending={isPending} />
