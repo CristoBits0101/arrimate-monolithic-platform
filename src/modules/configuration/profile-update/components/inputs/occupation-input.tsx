@@ -48,7 +48,7 @@ const OccupationInput = ({ name, isPending }: OccupationInputProps) => {
       render={({ field }) => (
         <FormItem>
           <FormLabel htmlFor='occupation' className='uppercase text-sm'>
-            {t('inputs.occupation')}
+            💼 {t('inputs.occupation')}
           </FormLabel>
           <FormControl>
             <Input
