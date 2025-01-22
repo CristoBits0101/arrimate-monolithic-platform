@@ -10,9 +10,6 @@ import SubmitButton from '@/modules/configuration/profile-update/components/butt
 // Cards
 import CardWrapper from '@/modules/configuration/profile-update/components/cards/card-wrapper'
 
-// Customized
-import { useSettingsForm } from '@/modules/configuration/profile-update/hooks/useSettingsForm'
-
 // Fieldset
 import FormFieldset from '@/modules/configuration/profile-update/components/fieldsets/form-fieldset'
 
@@ -22,6 +19,9 @@ import { FormProvider } from 'react-hook-form'
 // Google
 import autocomplete from '@/lib/google/google-maps'
 import { PlaceAutocompleteResult } from '@googlemaps/google-maps-services-js'
+
+// Hooks
+import { useSettingsForm } from '@/modules/configuration/profile-update/hooks/useSettingsForm'
 
 // Inputs
 import AddressInput from '@/modules/configuration/profile-update/components/inputs/address-input'
@@ -52,34 +52,31 @@ import { useEffect, useState } from 'react'
 import { Form } from '@/modules/ui/form'
 
 export default function SettingsForm() {
+  // Hooks
+  const { form, error, success, isPending, hydrated, onSubmit } = useSettingsForm()
+
   // Translations
   const f = useTranslations('ProfileForm')
   const t = useTranslations('Button')
 
-  // Custom hook
-  const { form, error, success, isPending, hydrated, onSubmit } = useSettingsForm()
-
-  // Predictions state
-  const [predictions, setPredictions] = useState<PlaceAutocompleteResult[]>([])
-
-  // Confirmation state
-  const [country, setCountry] = useState<string>('')
+  // States
   const [city, setCity] = useState<string>('')
-
-  // Value predictions
+  const [country, setCountry] = useState<string>('')
+  const [predictions, setPredictions] = useState<PlaceAutocompleteResult[]>([])
   const [value, setValue] = useState<string>('')
 
-  // Fetch predictions useEffect
+  // Effects
   useEffect(() => {
-    const fetchPredictions = async () => {
-      try {
-        const results = await autocomplete(value)
-        setPredictions(results)
-      } catch (error) {
-        console.error('Error fetching predictions: ', error)
+    (
+      async () => {
+        try {
+          const results = await autocomplete(value)
+          setPredictions(results)
+        } catch (error) {
+          console.error('Error fetching predictions:', error)
+        }
       }
-    }
-    fetchPredictions()
+    )()
   }, [value])
 
   return hydrated ? (
