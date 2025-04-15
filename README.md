@@ -9,7 +9,7 @@
     ✅                    Sign In ➜ Auth.js + Prisma + bcrypt/bcryptjs + Zod + React Hook Form + Shadcn/UI
     ✅                   Sign Out ➜ Auth.js + Shadcn/UI
     ✅                    Sign Up ➜ Auth.js + Prisma + bcrypt/bcryptjs + Resend + UUID + Zod + React Hook Form + Shadcn/UI
-    🚧  Two-Factor Auth (2FA) ➜ Auth.js + Prisma + UUID + Neon + OTP Library + Shadcn/UI
+    🚧      Two-Factor Auth (2FA) ➜ Auth.js + Prisma + UUID + Neon + OTP Library + Shadcn/UI
 
   ## Branding
 
