@@ -27,8 +27,8 @@
 
   ## E-commerce
 
-    🚧        Online Payments ➜ Not planned yet
-    🚧          Shopping Cart ➜ Partner API
+    🚧            Online Payments ➜ Not planned yet
+    🚧              Shopping Cart ➜ Partner API
     ✅                Partner API ➜ Zod
 
   ## Feeds
