@@ -5,12 +5,17 @@ import SettingButton from '@/modules/configuration/settings-panel/buttons/option
 
 // Custom
 import { usePost } from '@/modules/publications/add-post/hooks/usePost'
+import { useThemeContext } from '@/modules/configuration/settings-panel/hooks/useThemeContext'
 
 // Icons
-import manageIcon from '@/assets/icons/panels/manage-icon.svg'
-import performanceIcon from '@/assets/icons/panels/performance-icon.svg'
-import publishIcon from '@/assets/icons/panels/publish-icon.svg'
-import streamIcon from '@/assets/icons/panels/stream-icon.svg'
+import manageDarkIcon from '@/assets/icons/panels/manage-dark-icon.svg'
+import manageLightIcon from '@/assets/icons/panels/manage-light-icon.svg'
+import performanceDarkIcon from '@/assets/icons/panels/performance-dark-icon.svg'
+import performanceLightIcon from '@/assets/icons/panels/performance-light-icon.svg'
+import publishDarkIcon from '@/assets/icons/panels/publish-dark-icon.svg'
+import publishLightIcon from '@/assets/icons/panels/publish-light-icon.svg'
+import streamDarkIcon from '@/assets/icons/panels/stream-dark-icon.svg'
+import streamLightIcon from '@/assets/icons/panels/stream-light-icon.svg'
 
 // Intl
 import { useTranslations } from 'next-intl'
@@ -24,30 +29,35 @@ interface PostOptionsProps {
 const PostOptions: React.FC<PostOptionsProps> = ({ handleSelectOption }) => {
   // Access the function to update context
   const { changePost } = usePost()
+  const { activeTheme } = useThemeContext()
   // Get translations
   const t = useTranslations('Posts')
   return (
     <div className='flex flex-col items-center'>
       <SettingButton
-        icon={publishIcon}
+        icon={activeTheme === 'light' ? publishLightIcon : publishDarkIcon}
         label={t('publish')}
         onClick={() => handleSelectOption('publish')}
         altText={t('publish')}
       />
       <SettingButton
-        icon={streamIcon}
+        icon={activeTheme === 'light' ? streamLightIcon : streamDarkIcon}
         label={t('stream')}
         onClick={() => changePost('stream')}
         altText={t('stream')}
       />
       <SettingButton
-        icon={manageIcon}
+        icon={activeTheme === 'light' ? manageLightIcon : manageDarkIcon}
         label={t('manage')}
         onClick={() => handleSelectOption('manage')}
         altText={t('manage')}
       />
       <SettingButton
-        icon={performanceIcon}
+        icon={
+          activeTheme === 'light'
+            ? performanceLightIcon
+            : performanceDarkIcon
+        }
         label={t('performance')}
         onClick={() => handleSelectOption('performance')}
         altText={t('performance')}
