@@ -46,10 +46,54 @@ model Photo {
   hashtags     String[]
   userId       String
   createdAt    DateTime @default(now())
+  shareCount   Int      @default(0)
+
+  likes      PhotoLike[]
+  comments   PhotoComment[]
+  favorites  PhotoFavorite[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model PhotoLike {
+  id      String @id @default(cuid())
+  photoId String
+  userId  String
+  createdAt DateTime @default(now())
+
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([photoId, userId])
+  @@index([photoId])
+}
+
+model PhotoComment {
+  id      String @id @default(cuid())
+  photoId String
+  userId  String
+  content String
+  createdAt DateTime @default(now())
+
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([photoId])
+}
+
+model PhotoFavorite {
+  id      String @id @default(cuid())
+  photoId String
+  userId  String
+  createdAt DateTime @default(now())
+
+  photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([photoId, userId])
+  @@index([photoId])
 }
 
 model ResetPasswordToken {
@@ -72,6 +116,9 @@ model User {
   role          userRole     @default(USER)
   accounts      Account[]
   photos        Photo[]
+  likes         PhotoLike[]
+  comments      PhotoComment[]
+  favorites     PhotoFavorite[]
   phoneNumber   String?
   phonePrefixId String?
   phonePrefix   PhonePrefix? @relation(fields: [phonePrefixId], references: [id])
