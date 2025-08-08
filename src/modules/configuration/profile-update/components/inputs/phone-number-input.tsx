@@ -30,7 +30,7 @@ const PhoneNumberInput = ({ name, isPending }: PhoneNumberInputProps) => {
   const { session, hydrated } = useUserSession()
   const [userPhoneNumber, setuserPhoneNumber] = useState<string | undefined>('')
   useEffect(() => {
-    if (hydrated) setuserPhoneNumber(session?.user?.number || '')
+    if (hydrated) setuserPhoneNumber(session?.user?.phoneNumber || '')
   }, [hydrated, session, t])
   return (
     <FormField

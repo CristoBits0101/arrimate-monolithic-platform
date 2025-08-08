@@ -79,12 +79,7 @@ export const FrontendProfileSchema = (t: (key: string) => string) =>
       .string()
       .max(64, { message: t('maxLength') })
       .optional(),
-    interests: z
-      .array(z.string().max(64))
-      .optional()
-      .refine((interests) => !interests || interests.length <= 10, {
-        message: t('tooManyInterests')
-      }),
+    interests: z.string().max(64).optional(),
     slogan: z
       .string()
       .max(64, { message: t('maxLength') })
@@ -146,10 +141,7 @@ export const BackendProfileSchema = z.object({
   city: z.string().max(64).optional(),
   address: z.string().max(128).optional(),
   occupation: z.string().max(64).optional(),
-  interests: z
-    .array(z.string().max(64))
-    .optional()
-    .refine((interests) => !interests || interests.length <= 10),
+  interests: z.string().max(64).optional(),
   slogan: z.string().max(64).optional(),
   portfolio: z.string().url().max(128).optional()
 })
