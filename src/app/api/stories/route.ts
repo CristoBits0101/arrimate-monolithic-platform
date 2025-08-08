@@ -15,6 +15,19 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const limitParam = searchParams.get('limit')
+  const limit = limitParam ? parseInt(limitParam, 10) : 10
+
+  const photos = await db.photo.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: limit
+  })
+
+  return NextResponse.json({ photos })
+}
+
 export async function POST(request: Request) {
   // Get the form data
   const formData = await request.formData()
