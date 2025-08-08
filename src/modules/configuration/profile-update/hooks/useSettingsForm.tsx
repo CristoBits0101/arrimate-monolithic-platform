@@ -4,6 +4,9 @@
 import { useEffect, useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
+// Actions
+import profileAction from '@/modules/configuration/profile-update/actions/user-profile-action'
+
 export function useSettingsForm() {
   // States
   const [error, setError] = useState<string | undefined>('')
@@ -38,9 +41,11 @@ export function useSettingsForm() {
   const onSubmit = (values: Record<string, any>) => {
     setError('')
     setSuccess('')
-    console.log('Submitted Values:', values)
     startTransition(() => {
-      console.log('Start transition')
+      profileAction(values).then((data) => {
+        if (data?.error) setError(data.error)
+        if (data?.success) setSuccess(data.success)
+      })
     })
   }
 
