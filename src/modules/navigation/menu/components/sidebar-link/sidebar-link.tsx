@@ -44,7 +44,7 @@ export default function SidebarItem({
     <li className='flex items-center justify-center w-fit h-fit hover:cursor-pointer'>
       {/* Link */}
       <Link
-        className='flex items-center justify-center h-fit w-fit p-2 rounded-full transition-colors duration-300 hover:bg-[#F4F4F4] dark:hover:bg-[#848489] dark:text-[#ecece]'
+        className='flex items-center justify-center h-fit w-fit p-2 rounded-full transition-colors duration-300 hover:bg-[#F4F4F4] dark:hover:bg-[#26272C] dark:text-[#ecece] dark:hover:border-[#3b3b40]'
         href={href}
         onClick={() => {
           const audio = new Audio('/sounds/click.mp3')
