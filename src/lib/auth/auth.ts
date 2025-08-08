@@ -64,6 +64,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token.role && session.user)
         session.user.role = token.role as 'ADMIN' | 'USER'
 
+      // Attach user statistics to the session
+      if (session.user) {
+        if (typeof token.followers === 'number')
+          session.user.followers = token.followers
+        if (typeof token.following === 'number')
+          session.user.following = token.following
+        if (typeof token.posts === 'number') session.user.posts = token.posts
+      }
+
       // Return the updated session
       return session
     },
@@ -82,6 +91,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       // Add the user's role to the JWT token
       token.role = existingUser.role as 'ADMIN' | 'USER'
+
+      // Add user statistics to the JWT token
+      token.followers = existingUser.followers
+      token.following = existingUser.following
+      token.posts = existingUser.posts
 
       // Return the updated token
       return token
