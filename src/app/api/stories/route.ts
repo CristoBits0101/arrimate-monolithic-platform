@@ -2,6 +2,8 @@
 
 // Cloudinary
 import { v2 as cloudinary } from 'cloudinary'
+import { db } from '@/lib/orm/prisma-client'
+import { auth } from '@/lib/auth/auth'
 
 // Response
 import { NextResponse } from 'next/server'
@@ -19,6 +21,8 @@ export async function POST(request: Request) {
 
   // Get the file from the form data
   const file = formData.get('file')
+  const description = formData.get('description') as string | null
+  const hashtagsRaw = formData.get('hashtags') as string | null
 
   // Check if a file was uploaded
   if (!file || !(file instanceof Blob))
@@ -43,9 +47,31 @@ export async function POST(request: Request) {
     }
   )
 
-  // Confirm upload
+  const session = await auth()
+  if (!session?.user?.id)
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const hashtags = hashtagsRaw
+    ? hashtagsRaw
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter(Boolean)
+    : []
+
+  const photo = await db.photo.create({
+    data: {
+      title: description || 'Story',
+      description: description || undefined,
+      imageUrl: response.secure_url,
+      photographer: session.user.name || 'Unknown',
+      hashtags,
+      userId: session.user.id
+    }
+  })
+
   return NextResponse.json({
     message: 'File uploaded successfully',
-    url: response.secure_url
+    url: response.secure_url,
+    photo
   })
 }

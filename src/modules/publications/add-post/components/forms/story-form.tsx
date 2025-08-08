@@ -60,6 +60,17 @@ export default function StoryForm() {
           }}
           accept='image/*'
         />
+        <textarea
+          name='description'
+          placeholder='Description'
+          className='border rounded p-2'
+        />
+        <input
+          type='text'
+          name='hashtags'
+          placeholder='#hashtags'
+          className='border rounded p-2'
+        />
         <SubmitButton isPending={isPending} />
       </form>
     </CardWrapper>
