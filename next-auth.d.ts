@@ -8,11 +8,17 @@ declare module 'next-auth' {
       customField: string
       id: string
       role: 'ADMIN' | 'USER'
+      followers: number
+      following: number
+      posts: number
     } & DefaultSession['user']
   }
   // Roles allowed in users
   interface User {
     role: 'ADMIN' | 'USER'
+    followers: number
+    following: number
+    posts: number
   }
 }
 
@@ -20,6 +26,9 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
   interface JWT {
     role?: 'ADMIN' | 'USER'
+    followers?: number
+    following?: number
+    posts?: number
   }
 }
 
