@@ -195,6 +195,9 @@
     "result": "Resultado"
   },
   "SettingsPanel": {
+    "update": "Actualizar",
+    "updated": "Actualizado",
+    "updateFailed": "No se pudo actualizar",
     "language": {
       "english": "Inglés",
       "spanish": "Español",
