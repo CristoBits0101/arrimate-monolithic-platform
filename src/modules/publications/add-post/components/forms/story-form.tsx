@@ -19,6 +19,7 @@ export default function StoryForm() {
   const [hashtagsValues, setHashtagsValues] = useState<string[]>([])
   // Translations
   const t = useTranslations('FeedForms')
+  const tForms = useTranslations('Forms')
   // Transition state
   const [isPending, startTransition] = useTransition()
 
@@ -65,6 +66,12 @@ export default function StoryForm() {
         <textarea
           name='description'
           placeholder='Description'
+          className='border rounded p-2'
+        />
+        <input
+          type='text'
+          name='location'
+          placeholder={tForms('inputs.location')}
           className='border rounded p-2'
         />
         <input

@@ -17,7 +17,9 @@ export default async function profileAction(values: Record<string, any>) {
     return { error: 'Unauthorized' }
   }
   const filteredValues = Object.fromEntries(
-    Object.entries(values).filter(([, v]) => v !== '' && v !== undefined && v !== null)
+    Object.entries(values)
+      .map(([k, v]) => [k, typeof v === 'string' ? v.trim() : v])
+      .filter(([, v]) => v !== '' && v !== undefined && v !== null)
   )
 
   const parsed = BackendProfileSchema.safeParse(filteredValues)

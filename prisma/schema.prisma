@@ -44,6 +44,7 @@ model Photo {
   imageUrl     String
   photographer String
   hashtags     String[]
+  location     String?
   userId       String
   createdAt    DateTime @default(now())
   shareCount   Int      @default(0)
