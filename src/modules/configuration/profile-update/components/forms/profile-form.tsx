@@ -1,12 +1,5 @@
 'use client'
 
-// Alerts
-import FormError from '@/modules/auth/form-pieces/alerts/error-alert'
-import FormSuccess from '@/modules/auth/form-pieces/alerts/success-alert'
-
-// Buttons
-import SubmitButton from '@/modules/configuration/profile-update/components/buttons/submit-button'
-
 // Cards
 import CardWrapper from '@/modules/configuration/profile-update/components/cards/card-wrapper'
 
@@ -18,7 +11,7 @@ import { FormProvider } from 'react-hook-form'
 
 
 // Hooks
-import { useSettingsForm } from '@/modules/configuration/profile-update/hooks/useSettingsForm'
+import { useSettingsFormContext } from '@/modules/configuration/profile-update/contexts/settings-form-context'
 
 // Inputs
 import AddressInput from '@/modules/configuration/profile-update/components/inputs/address-input'
@@ -47,19 +40,16 @@ import { Form } from '@/modules/ui/form'
 
 export default function SettingsForm() {
   // Hooks
-  const { form, error, success, isPending, hydrated, onSubmit } = useSettingsForm()
+  const { form, isPending, handleUpdate } = useSettingsFormContext()
 
   // Translations
   const f = useTranslations('ProfileForm')
-  const t = useTranslations('Button')
 
-
-  return hydrated ? (
+  return (
     <CardWrapper>
       <FormProvider {...form}>
         <Form {...form}>
           <form className='space-y-8 text-sm' onSubmit={form.handleSubmit(onSubmit)}>
-
             <div className='space-y-8 mt-8'>
               <FormFieldset legend={f('identity')}>
                 <NameInput name='name' isPending={isPending} />
@@ -90,18 +80,9 @@ export default function SettingsForm() {
               </FormFieldset>
             </div>
 
-            {/* Messages */}
-            <FormError message={error} />
-            <FormSuccess message={success} />
-
-            {/* Submit */}
-            <div className='w-full h-fit flex justify-end'>
-              <SubmitButton message={t('save')} isPending={isPending} />
-            </div>
-
           </form>
         </Form>
       </FormProvider>
     </CardWrapper>
-  ) : null
+  )
 }

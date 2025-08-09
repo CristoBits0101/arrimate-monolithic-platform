@@ -172,8 +172,8 @@
 
 | Uso         | Color Hex |
 |-------------|-----------|
-| Blanco      | `#FFFFFF` |
-| Fondo Claro | `#F0F4F9` |
+| Blanco      | `#ffffff` |
+| Fondo Claro | `#f0f4f9` |
 | Azul Base   | `#1a73e8` |
 | Azul Oscuro | `#174ea6` |
 
@@ -188,11 +188,12 @@
 | Uso         | Color Hex |
 |-------------|-----------|
 | Rojo Alerta | `#e45546` |
+| Rojo Like   | `#932d30` |
 
 ### ⚫ Paleta de Separadores (Gris)
 
 | Uso              | Color Hex   |
 |------------------|-------------|
-| Base             | `#B8B8BB`   |
-| Transparente 10% | `#B8B8BB25` |
-| Transparente 30% | `#B8B8BB50` |
+| Base             | `#b8b8bb`   |
+| Transparente 10% | `#b8b8bb25` |
+| Transparente 30% | `#b8b8bb50` |
