@@ -1,13 +1,19 @@
 'use client'
 
+import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { cn } from '@/lib/utils/classnames'
 import { useSettingsFormContext } from '@/modules/configuration/profile-update/contexts/settings-form-context'
+import { useThemeContext } from '@/modules/configuration/settings-panel/hooks/useThemeContext'
+
+import updateDarkIcon from '@/assets/icons/buttons/inactive/dark-theme/updates/update-dark-icon.svg'
+import updateLightIcon from '@/assets/icons/buttons/inactive/light-theme/updates/update-light-icon.svg'
 
 export default function UpdateButton() {
   const { status, isPending, handleUpdate } = useSettingsFormContext()
+  const { activeTheme } = useThemeContext()
   const t = useTranslations('SettingsPanel')
 
   let label = t('update')
@@ -25,7 +31,16 @@ export default function UpdateButton() {
       )}
     >
       {label}
-      {status === 'success' && <Check className='w-5 h-5 text-green-600' />}
+      {status === 'success' ? (
+        <Check className='w-5 h-5 text-green-600' />
+      ) : (
+        <Image
+          src={activeTheme === 'light' ? updateLightIcon : updateDarkIcon}
+          alt='Update icon'
+          className='w-5 h-5 aspect-square object-contain'
+        />
+      )}
     </button>
   )
 }
+
