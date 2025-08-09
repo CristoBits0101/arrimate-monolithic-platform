@@ -87,8 +87,6 @@ export default async function profileAction(values: Record<string, any>) {
   } catch (error) {
     console.error('Error updating profile:', error)
     return { error: 'Update failed' }
-  } finally {
-    await db.$disconnect()
   }
 }
 
