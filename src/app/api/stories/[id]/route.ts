@@ -19,14 +19,15 @@ export async function PATCH(request: Request, { params }: Params) {
   if (photo.userId !== session.user.id)
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
-  const { title, description, hashtags } = await request.json()
+  const { title, description, hashtags, location } = await request.json()
 
   const updated = await db.photo.update({
     where: { id: params.id },
     data: {
       title: title ?? photo.title,
       description: description ?? photo.description,
-      hashtags: Array.isArray(hashtags) ? hashtags : photo.hashtags
+      hashtags: Array.isArray(hashtags) ? hashtags : photo.hashtags,
+      location: location ?? photo.location
     }
   })
 

@@ -52,6 +52,7 @@ export async function POST(request: Request) {
   // Get the file from the form data
   const file = formData.get('file')
   const description = formData.get('description') as string | null
+  const location = formData.get('location') as string | null
   const hashtagsRaw = formData.get('hashtags') as string | null
 
   // Check if a file was uploaded
@@ -95,6 +96,7 @@ export async function POST(request: Request) {
       imageUrl: response.secure_url,
       photographer: session.user.name || 'Unknown',
       hashtags,
+      location: location || undefined,
       userId: session.user.id
     }
   })
