@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useState, useEffect, useRef } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 
 // 1. Creating the context
 const SearchContext = createContext<{
@@ -12,7 +13,7 @@ const SearchContext = createContext<{
   updateReset: (reset: boolean) => void
   updateSearch: (term: string) => void
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  handleSubmit: (event: React.ChangeEvent<HTMLFormElement>) => void
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   isTyping: boolean // Añadido a la definición del contexto
 } | null>(null)
 
@@ -23,6 +24,10 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   const [resetSearchInput, setResetSearchInput] = useState<boolean>(false)
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [isTyping, setIsTyping] = useState<boolean>(false)
+
+  // Router
+  const router = useRouter()
+  const pathname = usePathname()
 
   // Ref
   const searchContainerRef = useRef<HTMLDivElement>(null)
@@ -63,8 +68,14 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
     setSearchTerm('')
   }
 
-  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const term = searchTerm.trim()
+    if (!term) return
+    const locale = pathname?.split('/')[1] || ''
+    router.push(`/${locale}/stories?search=${encodeURIComponent(term)}`)
+    setIsFocused(false)
+    setSearchTerm('')
   }
 
   // Effects
