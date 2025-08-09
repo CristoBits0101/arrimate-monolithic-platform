@@ -42,7 +42,7 @@ export default function PostButton({
             className='drop-shadow-sm w-7 h-7'
             size={iconSize}
             aria-label={iconAlt}
-            color={isActive ? '#932D30' : iconColor}
+            style={{ color: isActive ? '#932D30' : iconColor }}
           />
         )}
         {iconDisplay === 'comments' && (
