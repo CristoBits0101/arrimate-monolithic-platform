@@ -20,17 +20,29 @@ export async function GET(request: Request) {
   const limitParam = searchParams.get('limit')
   const limit = limitParam ? parseInt(limitParam, 10) : 10
 
+  const session = await auth()
+  const userId = session?.user?.id
+
   const photos = await db.photo.findMany({
     orderBy: { createdAt: 'desc' },
     take: limit,
     include: {
       _count: {
         select: { likes: true, comments: true, favorites: true }
-      }
+      },
+      ...(userId
+        ? { likes: { where: { userId }, select: { id: true } } }
+        : {})
     }
   })
 
-  return NextResponse.json({ photos })
+  const formatted = photos.map((photo: any) => {
+    const { likes = [], ...rest } = photo
+    const liked = userId ? likes.length > 0 : false
+    return { ...rest, liked }
+  })
+
+  return NextResponse.json({ photos: formatted })
 }
 
 export async function POST(request: Request) {

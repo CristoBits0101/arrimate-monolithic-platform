@@ -9,6 +9,7 @@ import {
   type Photo
 } from '@/modules/publications/show-post/hooks/useFetchLatestPhotos'
 import { randomUtils } from '@/utils/randomUtils'
+import { useState, useEffect } from 'react'
 
 // Image
 import Image from 'next/image'
@@ -25,7 +26,38 @@ export default function ShowPostImages() {
   const t = useTranslations('Feeds')
 
   // Query images from application
-  const { photos, loading } = useFetchLatestPhotos(10)
+  const { photos: initialPhotos, loading } = useFetchLatestPhotos(10)
+  const [photos, setPhotos] = useState<Photo[]>([])
+
+  useEffect(() => {
+    setPhotos(initialPhotos)
+  }, [initialPhotos])
+
+  const handleLike = async (photoId: string) => {
+    try {
+      const res = await fetch(`/api/stories/${photoId}/like`, {
+        method: 'POST'
+      })
+      if (!res.ok) return
+      const data = await res.json()
+      setPhotos((prev) =>
+        prev.map((photo) =>
+          photo.id === photoId
+            ? {
+                ...photo,
+                liked: data.liked,
+                _count: {
+                  ...photo._count,
+                  likes: photo._count.likes + (data.liked ? 1 : -1)
+                }
+              }
+            : photo
+        )
+      )
+    } catch (error) {
+      console.error('Error liking photo', error)
+    }
+  }
 
   // Show loading message while fetching photos
   if (loading) {
@@ -90,6 +122,8 @@ export default function ShowPostImages() {
               iconAlt='Like icon'
               iconDisplay='like'
               textDisplay={(photo._count?.likes ?? 0).toString()}
+              onClick={() => handleLike(photo.id)}
+              isActive={photo.liked}
             />
             <PostButton
               iconAlt='Comment icon'
