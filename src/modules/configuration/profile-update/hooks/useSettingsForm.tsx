@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 
 // Actions
 import profileAction from '@/modules/configuration/profile-update/actions/user-profile-action'
+import getUserProfileAction from '@/modules/configuration/profile-update/actions/get-user-profile-action'
 
 export function useSettingsForm() {
   // States
@@ -50,7 +51,18 @@ export function useSettingsForm() {
   }
 
   // Effects
-  useEffect(() => setHydrated(true), [])
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getUserProfileAction()
+        if (data) form.reset(data)
+      } catch (error) {
+        console.error('Error fetching profile:', error)
+      } finally {
+        setHydrated(true)
+      }
+    })()
+  }, [form])
 
   return {
     form,
