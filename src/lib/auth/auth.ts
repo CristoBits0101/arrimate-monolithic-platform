@@ -71,6 +71,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (typeof token.following === 'number')
           session.user.following = token.following
         if (typeof token.posts === 'number') session.user.posts = token.posts
+        if (token.createdAt) session.user.createdAt = token.createdAt as string
       }
 
       // Return the updated session
@@ -96,6 +97,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       token.followers = existingUser.followers
       token.following = existingUser.following
       token.posts = existingUser.posts
+      token.createdAt = existingUser.createdAt.toISOString()
 
       // Return the updated token
       return token
