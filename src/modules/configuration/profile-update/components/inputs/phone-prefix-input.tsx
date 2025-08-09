@@ -31,7 +31,6 @@ interface PhonePrefixInputProps {
 
 const PhonePrefixInput = ({ name, isPending }: PhonePrefixInputProps) => {
   const t = useTranslations('Forms')
-  const [prefixes, setPrefixes] = useState<string[]>([])
   const [filteredPrefixes, setFilteredPrefixes] = useState<string[]>([])
   const [search, setSearch] = useState<string>('')
   const [hasSelected, setHasSelected] = useState<boolean>(false)
@@ -63,28 +62,27 @@ const PhonePrefixInput = ({ name, isPending }: PhonePrefixInputProps) => {
   }, [hydrated, session, fieldValue, name, setValue])
 
   useEffect(() => {
+    if (search.trim() === '' || hasSelected) {
+      setFilteredPrefixes([])
+      return
+    }
+
+    let isCancelled = false
+
     async function fetchPrefixes() {
       try {
-        const fetchedPrefixes = await getPhonePrefixes()
-        setPrefixes(fetchedPrefixes)
+        const fetchedPrefixes = await getPhonePrefixes(search)
+        if (!isCancelled) setFilteredPrefixes(fetchedPrefixes)
       } catch (error) {
         console.error('Error fetching phone prefixes:', error)
       }
     }
-    fetchPrefixes()
-  }, [])
 
-  useEffect(() => {
-    if (search.trim() === '' || hasSelected) setFilteredPrefixes([])
-    else {
-      const lowercasedSearch = search.toLowerCase()
-      setFilteredPrefixes(
-        prefixes.filter((prefix) =>
-          prefix.toLowerCase().includes(lowercasedSearch)
-        )
-      )
+    fetchPrefixes()
+    return () => {
+      isCancelled = true
     }
-  }, [search, prefixes, hasSelected])
+  }, [search, hasSelected])
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
