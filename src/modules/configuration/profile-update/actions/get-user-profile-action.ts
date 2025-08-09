@@ -45,8 +45,6 @@ export default async function getUserProfileAction () {
   } catch (error) {
     console.error('Error fetching profile:', error)
     return null
-  } finally {
-    await db.$disconnect()
   }
 }
 

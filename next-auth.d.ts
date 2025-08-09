@@ -12,6 +12,7 @@ declare module 'next-auth' {
       following: number
       posts: number
       createdAt: string
+      prefix: string
     } & DefaultSession['user']
   }
   // Roles allowed in users
@@ -32,6 +33,7 @@ declare module 'next-auth/jwt' {
     following?: number
     posts?: number
     createdAt?: string
+    prefix?: string
   }
 }
 

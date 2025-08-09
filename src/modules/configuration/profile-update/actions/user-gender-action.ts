@@ -17,7 +17,5 @@ export async function getGenders() {
   } catch (error) {
     console.error('Error fetching genders:', error)
     throw error
-  } finally {
-    await db.$disconnect()
   }
 }
