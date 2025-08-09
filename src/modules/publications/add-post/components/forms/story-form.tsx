@@ -15,6 +15,8 @@ import { useTranslations } from 'next-intl'
 export default function StoryForm() {
   // State for uploaded file
   const [file, setFile] = useState<File | null>(null)
+  const [hashtagsDisplay, setHashtagsDisplay] = useState('')
+  const [hashtagsValues, setHashtagsValues] = useState<string[]>([])
   // Translations
   const t = useTranslations('FeedForms')
   // Transition state
@@ -67,10 +69,17 @@ export default function StoryForm() {
         />
         <input
           type='text'
-          name='hashtags'
-          placeholder='#hashtags'
+          placeholder='hashtags'
+          value={hashtagsDisplay}
+          onChange={(e) => {
+            const value = e.target.value.replace(/#/g, '')
+            const words = value.trim().split(/\s+/).filter(Boolean)
+            setHashtagsDisplay(words.map((word) => `#${word}`).join(' '))
+            setHashtagsValues(words)
+          }}
           className='border rounded p-2'
         />
+        <input type='hidden' name='hashtags' value={hashtagsValues.join(',')} />
         <SubmitButton isPending={isPending} />
       </form>
     </CardWrapper>
