@@ -5,6 +5,7 @@ import { getPhonePrefixes } from '@/modules/configuration/profile-update/actions
 
 // Hooks
 import { useEffect, useRef, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 // Intl
 import { useTranslations } from 'next-intl'
@@ -37,6 +38,18 @@ const PhonePrefixInput = ({ name, isPending }: PhonePrefixInputProps) => {
   const dropdownRef = useRef<HTMLUListElement>(null)
   const { session, hydrated } = useUserSession()
   const [userPhonePrefix, setuserPhonePrefix] = useState<string | undefined>('')
+  const { watch } = useFormContext()
+  const fieldValue = watch<string>(name)
+
+  useEffect(() => {
+    if (fieldValue) {
+      setSearch(fieldValue)
+      setHasSelected(true)
+    } else {
+      setSearch('')
+      setHasSelected(false)
+    }
+  }, [fieldValue])
 
   useEffect(() => {
     if (hydrated) setuserPhonePrefix(session?.user?.prefix || '')
