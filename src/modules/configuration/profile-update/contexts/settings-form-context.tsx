@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
+import type { BaseSyntheticEvent } from 'react'
 import { usePathname } from 'next/navigation'
 
 import { useSettingsForm } from '@/modules/configuration/profile-update/hooks/useSettingsForm'
@@ -10,7 +11,7 @@ interface SettingsFormContextType {
   form: UseFormReturn<any>
   status: 'idle' | 'dirty' | 'success' | 'error'
   isPending: boolean
-  handleUpdate: () => void
+  handleUpdate: (event?: BaseSyntheticEvent) => void
 }
 
 const SettingsFormContext = createContext<SettingsFormContextType | null>(null)
@@ -49,8 +50,8 @@ export function SettingsFormProvider({ children }: { children: React.ReactNode }
     return () => clearTimeout(timeout)
   }, [error, form, isSettings])
 
-  const handleUpdate = () => {
-    form.handleSubmit(onSubmit)()
+  const handleUpdate = (event?: BaseSyntheticEvent) => {
+    form.handleSubmit(onSubmit)(event)
   }
 
   if (!isSettings) return <>{children}</>
