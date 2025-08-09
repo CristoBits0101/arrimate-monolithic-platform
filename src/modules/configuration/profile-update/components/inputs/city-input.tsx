@@ -26,10 +26,9 @@ import { Input } from '@/modules/ui/input'
 interface InputProps {
   name: string
   isPending: boolean
-  city?: string
 }
 
-const CityInput = ({ name, isPending, city }: InputProps) => {
+const CityInput = ({ name, isPending }: InputProps) => {
   const t = useTranslations('Forms')
   const { control } = useFormContext()
   const { session, hydrated } = useUserSession()
@@ -38,11 +37,6 @@ const CityInput = ({ name, isPending, city }: InputProps) => {
   useEffect(() => {
     if (hydrated) setUserCity(session?.user?.city || '')
   }, [hydrated, session])
-
-  useEffect(() => {
-    if (city) setUserCity(city)
-    setUserCity(city)
-  }, [city])
 
   return hydrated ? (
     <FormField
@@ -61,7 +55,6 @@ const CityInput = ({ name, isPending, city }: InputProps) => {
               type='text'
               id='city'
               value={field.value || ''}
-              readOnly
               onChange={(e) => field.onChange(e.target.value)}
               className='rounded-none border border-solid bg-[#F4F4F4] dark:bg-[#26272c] border-[#EBEAEB] dark:border-[#3b3b40] hover:bg-[#EBEAEB] focus:bg-[#EBEAEB] dark:hover:bg-[#3b3b40] dark:focus:bg-[#3b3b40] text-[#1D0F0F] dark:text-[#ececed] placeholder:text-[#453C41] dark:placeholder:text-[#848489]'
             />

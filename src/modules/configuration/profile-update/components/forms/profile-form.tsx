@@ -16,9 +16,6 @@ import FormFieldset from '@/modules/configuration/profile-update/components/fiel
 // Forms
 import { FormProvider } from 'react-hook-form'
 
-// Google
-import autocomplete from '@/lib/google/google-maps'
-import { PlaceAutocompleteResult } from '@googlemaps/google-maps-services-js'
 
 // Hooks
 import { useSettingsForm } from '@/modules/configuration/profile-update/hooks/useSettingsForm'
@@ -45,9 +42,6 @@ import ZipCodeInput from '@/modules/configuration/profile-update/components/inpu
 // Intl
 import { useTranslations } from 'next-intl'
 
-// React
-import { useEffect, useState } from 'react'
-
 // Shadcn
 import { Form } from '@/modules/ui/form'
 
@@ -59,25 +53,6 @@ export default function SettingsForm() {
   const f = useTranslations('ProfileForm')
   const t = useTranslations('Button')
 
-  // States
-  const [city, setCity] = useState<string>('')
-  const [country, setCountry] = useState<string>('')
-  const [predictions, setPredictions] = useState<PlaceAutocompleteResult[]>([])
-  const [value, setValue] = useState<string>('')
-
-  // Effects
-  useEffect(() => {
-    (
-      async () => {
-        try {
-          const results = await autocomplete(value)
-          setPredictions(results)
-        } catch (error) {
-          console.error('Error fetching predictions:', error)
-        }
-      }
-    )()
-  }, [value])
 
   return hydrated ? (
     <CardWrapper>
@@ -102,20 +77,9 @@ export default function SettingsForm() {
                 <NewPasswordInput name='newPassword' isPending={isPending} />
               </FormFieldset>
               <FormFieldset legend={f('location')}>
-                <ZipCodeInput
-                  predictions={predictions}
-                  setValue={setValue}
-                  name='zipCode'
-                  isPending={isPending}
-                  setCountry={setCountry}
-                  setCity={setCity}
-                />
-                <CountryInput
-                  country={country}
-                  name='country'
-                  isPending={isPending}
-                />
-                <CityInput city={city} name='city' isPending={isPending} />
+                <ZipCodeInput name='zipCode' isPending={isPending} />
+                <CountryInput name='country' isPending={isPending} />
+                <CityInput name='city' isPending={isPending} />
                 <AddressInput name='address' isPending={isPending} />
               </FormFieldset>
               <FormFieldset legend={f('vocation')}>

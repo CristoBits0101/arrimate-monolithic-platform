@@ -18,7 +18,7 @@
   ## Configuration
 
     ✅             Settings Panel ➜ Components + Buttons
-    ✅             Settings Page  ➜ Google Cloud/Maps + Auth.js + Prisma + Zod + bcrypt/bcryptjs + React Hook Form + Shadcn/UI
+    ✅             Settings Page  ➜ Auth.js + Prisma + Zod + bcrypt/bcryptjs + React Hook Form + Shadcn/UI
 
   ## Data
 
@@ -87,10 +87,6 @@
 
     📦           Encrypt Password ➜ npm i bcryptjs
     📦             Bcryptjs Types ➜ npm install --save-dev @types/bcryptjs
-
-  ## Google
-
-    📦                Google Maps ➜ npm i @googlemaps/google-maps-services-js
 
   ## Prisma
 

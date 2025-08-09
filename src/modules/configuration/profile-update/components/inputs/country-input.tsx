@@ -26,10 +26,9 @@ import {
 interface InputProps {
   name: string
   isPending: boolean
-  country?: string
 }
 
-const CountryInput = ({ name, isPending, country }: InputProps) => {
+const CountryInput = ({ name, isPending }: InputProps) => {
   const t = useTranslations('Forms')
   const { control } = useFormContext()
   const { hydrated, session } = useUserSession()
@@ -38,10 +37,6 @@ const CountryInput = ({ name, isPending, country }: InputProps) => {
   useEffect(() => {
     if (hydrated) setUserCountry(session?.user?.country || '')
   }, [hydrated, session])
-
-  useEffect(() => {
-    if (country) setUserCountry(country)
-  }, [country])
 
   return hydrated ? (
     <FormField
@@ -59,7 +54,6 @@ const CountryInput = ({ name, isPending, country }: InputProps) => {
               type='text'
               id='country'
               placeholder={userCountry || ''}
-              readOnly
               value={field.value || ''}
               onChange={(e) => field.onChange(e.target.value)}
               className='rounded-none border border-solid bg-[#F4F4F4] dark:bg-[#26272c] border-[#EBEAEB] dark:border-[#3b3b40] hover:bg-[#EBEAEB] focus:bg-[#EBEAEB] dark:hover:bg-[#3b3b40] dark:focus:bg-[#3b3b40] text-[#1D0F0F] dark:text-[#ececed] placeholder:text-[#453C41] dark:placeholder:text-[#848489]'
