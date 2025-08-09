@@ -58,7 +58,7 @@ export default function SettingsForm() {
     <CardWrapper>
       <FormProvider {...form}>
         <Form {...form}>
-          <form className='space-y-8' onSubmit={form.handleSubmit(onSubmit)}>
+          <form className='space-y-8 text-sm' onSubmit={form.handleSubmit(onSubmit)}>
 
             <div className='space-y-8 mt-8'>
               <FormFieldset legend={f('identity')}>
