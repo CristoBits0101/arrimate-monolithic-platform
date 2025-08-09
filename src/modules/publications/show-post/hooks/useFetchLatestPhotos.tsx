@@ -10,6 +10,12 @@ interface Photo {
   photographer: string
   hashtags: string[]
   createdAt: string
+  shareCount: number
+  _count: {
+    likes: number
+    comments: number
+    favorites: number
+  }
 }
 
 export const useFetchLatestPhotos = (limit = 10) => {

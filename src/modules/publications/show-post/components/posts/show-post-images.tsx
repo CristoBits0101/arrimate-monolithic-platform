@@ -89,22 +89,22 @@ export default function ShowPostImages() {
             <PostButton
               iconAlt='Like icon'
               iconDisplay='like'
-              textDisplay={randomUtils.getRandomLikes().toString()}
+              textDisplay={(photo._count?.likes ?? 0).toString()}
             />
             <PostButton
               iconAlt='Comment icon'
               iconDisplay='comments'
-              textDisplay={randomUtils.getRandomInteractions().toString()}
+              textDisplay={(photo._count?.comments ?? 0).toString()}
             />
             <PostButton
               iconAlt='Save icon'
               iconDisplay='save'
-              textDisplay={randomUtils.getRandomInteractions().toString()}
+              textDisplay={(photo._count?.favorites ?? 0).toString()}
             />
             <PostButton
               iconAlt='Share icon'
               iconDisplay='share'
-              textDisplay={randomUtils.getRandomInteractions().toString()}
+              textDisplay={(photo.shareCount ?? 0).toString()}
             />
             <PostButton iconAlt='Options icon' iconDisplay='options' />
           </aside>
