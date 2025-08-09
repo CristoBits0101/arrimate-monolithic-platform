@@ -29,7 +29,5 @@ export async function getPhonePrefixes() {
   } catch (error) {
     console.error('Error fetching phone prefixes:', error)
     throw error
-  } finally {
-    await db.$disconnect()
   }
 }
