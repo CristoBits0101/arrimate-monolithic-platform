@@ -31,15 +31,16 @@ export default function UpdateButton() {
       )}
     >
       {label}
-      {status === 'success' ? (
-        <Check className='w-5 h-5 text-green-600' />
-      ) : (
+      <span className='relative w-5 h-5'>
         <Image
           src={activeTheme === 'light' ? updateLightIcon : updateDarkIcon}
           alt='Update icon'
           className='w-5 h-5 aspect-square object-contain'
         />
-      )}
+        {status === 'success' && (
+          <Check className='absolute inset-0 w-5 h-5 text-green-600' />
+        )}
+      </span>
     </button>
   )
 }
