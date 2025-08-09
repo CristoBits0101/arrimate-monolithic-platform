@@ -16,8 +16,11 @@ export default async function profileAction(values: Record<string, any>) {
   if (!session?.user?.id) {
     return { error: 'Unauthorized' }
   }
+  const filteredValues = Object.fromEntries(
+    Object.entries(values).filter(([, v]) => v !== '' && v !== undefined && v !== null)
+  )
 
-  const parsed = BackendProfileSchema.safeParse(values)
+  const parsed = BackendProfileSchema.safeParse(filteredValues)
   if (!parsed.success) {
     return { error: 'Invalid fields' }
   }
