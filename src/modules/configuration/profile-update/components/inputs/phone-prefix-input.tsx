@@ -38,7 +38,7 @@ const PhonePrefixInput = ({ name, isPending }: PhonePrefixInputProps) => {
   const dropdownRef = useRef<HTMLUListElement>(null)
   const { session, hydrated } = useUserSession()
   const [userPhonePrefix, setuserPhonePrefix] = useState<string | undefined>('')
-  const { watch } = useFormContext()
+  const { watch, setValue } = useFormContext()
   const fieldValue = watch<string>(name)
 
   useEffect(() => {
@@ -52,8 +52,15 @@ const PhonePrefixInput = ({ name, isPending }: PhonePrefixInputProps) => {
   }, [fieldValue])
 
   useEffect(() => {
-    if (hydrated) setuserPhonePrefix(session?.user?.prefix || '')
-  }, [hydrated, session, t])
+    if (!hydrated) return
+    const prefix = session?.user?.prefix || ''
+    setuserPhonePrefix(prefix)
+    if (!fieldValue && prefix) {
+      setValue(name, prefix)
+      setSearch(prefix)
+      setHasSelected(true)
+    }
+  }, [hydrated, session, fieldValue, name, setValue])
 
   useEffect(() => {
     async function fetchPrefixes() {
