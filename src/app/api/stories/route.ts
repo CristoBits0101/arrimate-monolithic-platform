@@ -22,7 +22,12 @@ export async function GET(request: Request) {
 
   const photos = await db.photo.findMany({
     orderBy: { createdAt: 'desc' },
-    take: limit
+    take: limit,
+    include: {
+      _count: {
+        select: { likes: true, comments: true, favorites: true }
+      }
+    }
   })
 
   return NextResponse.json({ photos })
