@@ -72,6 +72,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           session.user.following = token.following
         if (typeof token.posts === 'number') session.user.posts = token.posts
         if (token.createdAt) session.user.createdAt = token.createdAt as string
+        if (token.prefix) session.user.prefix = token.prefix as string
       }
 
       // Return the updated session
@@ -98,6 +99,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       token.following = existingUser.following
       token.posts = existingUser.posts
       token.createdAt = existingUser.createdAt.toISOString()
+      token.prefix = existingUser.phonePrefix?.prefix
 
       // Return the updated token
       return token

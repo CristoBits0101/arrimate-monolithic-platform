@@ -1,9 +1,8 @@
-'use server'
-
 // Prisma
 import { db } from '@/lib/orm/prisma-client'
 
 export async function getPhonePrefixes() {
+  'use server'
   try {
     const prefixes = await db.phonePrefix.findMany({
       select: {
@@ -29,7 +28,5 @@ export async function getPhonePrefixes() {
   } catch (error) {
     console.error('Error fetching phone prefixes:', error)
     throw error
-  } finally {
-    await db.$disconnect()
   }
 }

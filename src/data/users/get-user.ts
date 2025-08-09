@@ -16,8 +16,11 @@ export const getUserByEmail = async (email: string) => {
 // Fetch user by ID
 export const getUserById = async (id: string) => {
   try {
-    // Search by ID
-    const user = await db.user.findUnique({ where: { id } })
+    // Search by ID and include phone prefix
+    const user = await db.user.findUnique({
+      where: { id },
+      include: { phonePrefix: true }
+    })
     // Return user if found
     return user
   } catch {
