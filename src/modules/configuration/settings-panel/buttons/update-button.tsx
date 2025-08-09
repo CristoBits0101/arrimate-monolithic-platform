@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { Check } from 'lucide-react'
+import { PulseLoader } from 'react-spinners'
 import { useTranslations } from 'next-intl'
 
 import { cn } from '@/lib/utils/classnames'
@@ -19,6 +20,7 @@ export default function UpdateButton() {
   let label = t('update')
   if (status === 'success') label = t('updated')
   if (status === 'error') label = t('updateFailed')
+  const loaderColor = activeTheme === 'light' ? '#000000' : '#ffffff'
 
   return (
     <button
@@ -30,15 +32,16 @@ export default function UpdateButton() {
         status === 'dirty' && 'animate-pulse dark:bg-[#26272C] bg-[#F4F4F4]'
       )}
     >
-      {label}
-      <span className='relative w-5 h-5'>
-        <Image
-          src={activeTheme === 'light' ? updateLightIcon : updateDarkIcon}
-          alt='Update icon'
-          className='w-5 h-5 aspect-square object-contain'
-        />
-        {status === 'success' && (
-          <Check className='absolute inset-0 w-5 h-5 text-green-600' />
+      {isPending ? <PulseLoader color={loaderColor} /> : label}
+      <span className='w-5 h-5 flex items-center justify-center'>
+        {status === 'success' ? (
+          <Check className='w-5 h-5 text-green-600' />
+        ) : (
+          <Image
+            src={activeTheme === 'light' ? updateLightIcon : updateDarkIcon}
+            alt='Update icon'
+            className='w-5 h-5 aspect-square object-contain'
+          />
         )}
       </span>
     </button>
