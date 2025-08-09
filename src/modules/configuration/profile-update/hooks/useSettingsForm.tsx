@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import profileAction from '@/modules/configuration/profile-update/actions/user-profile-action'
 import getUserProfileAction from '@/modules/configuration/profile-update/actions/get-user-profile-action'
 
-export function useSettingsForm() {
+export function useSettingsForm(enabled: boolean = true) {
   // States
   const [error, setError] = useState<string | undefined>('')
   const [hydrated, setHydrated] = useState(false)
@@ -45,14 +45,21 @@ export function useSettingsForm() {
     startTransition(() => {
       profileAction(values).then((data) => {
         if (data?.error) setError(data.error)
-        if (data?.success) setSuccess(data.success)
+        if (data?.success) {
+          setSuccess(data.success)
+          form.reset(values)
+        }
       })
     })
   }
 
   // Effects
   useEffect(() => {
-    (async () => {
+    if (!enabled) {
+      setHydrated(true)
+      return
+    }
+    ;(async () => {
       try {
         const data = await getUserProfileAction()
         if (data) form.reset(data)
@@ -62,6 +69,14 @@ export function useSettingsForm() {
         setHydrated(true)
       }
     })()
+  }, [form, enabled])
+
+  useEffect(() => {
+    const subscription = form.watch(() => {
+      setError('')
+      setSuccess('')
+    })
+    return () => subscription.unsubscribe()
   }, [form])
 
   return {

@@ -2,6 +2,7 @@
 
 // Buttons
 import OptionsButton from '@/modules/configuration/settings-panel/buttons/options-button'
+import UpdateButton from '@/modules/configuration/settings-panel/buttons/update-button'
 
 // Context
 import { useThemeContext } from '@/modules/configuration/settings-panel/hooks/useThemeContext'
@@ -48,6 +49,7 @@ const OptionsPanel: React.FC<OptionsPanelProps> = ({
       </div>
       {/* Selection buttons */}
       <div className='w-full h-fit flex flex-col'>
+        <UpdateButton />
         <OptionsButton
           icon={activeTheme === 'light' ? languageLightIcon : languageDarkIcon}
           label={languageLabel}
