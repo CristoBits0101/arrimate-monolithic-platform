@@ -10,7 +10,7 @@ import {
 import { useState, useEffect } from 'react'
 
 export default function ShowPostShorts() {
-  const { shorts: initialShorts, loading } = useFetchLatestShorts(10)
+  const { shorts: initialShorts, loading, error } = useFetchLatestShorts(10)
   const [shorts, setShorts] = useState<Short[]>([])
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function ShowPostShorts() {
     )
   }
 
-  if (!shorts || shorts.length === 0)
+  if (error || !shorts || shorts.length === 0)
     return <NoContent text={'No shorts available'} />
 
   return (

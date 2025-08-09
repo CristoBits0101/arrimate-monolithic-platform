@@ -26,12 +26,15 @@ export const useFetchLatestShorts = (limit = 10) => {
         const res = await fetch(`/api/shorts?limit=${limit}`)
         if (!res.ok) throw new Error('Failed to fetch shorts')
         const data = await res.json()
-        setShorts(
-          data.shorts.map((short: any) => ({
-            ...short,
-            liked: Boolean(short.liked)
-          }))
-        )
+
+        const formatted = Array.isArray(data.shorts)
+          ? data.shorts.map((short: any) => ({
+              ...short,
+              liked: Boolean(short.liked)
+            }))
+          : []
+
+        setShorts(formatted)
       } catch (err: any) {
         setError(err.message)
       } finally {
