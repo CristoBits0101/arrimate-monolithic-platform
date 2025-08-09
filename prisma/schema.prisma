@@ -49,9 +49,9 @@ model Photo {
   createdAt    DateTime @default(now())
   shareCount   Int      @default(0)
 
-  likes      PhotoLike[]
-  comments   PhotoComment[]
-  favorites  PhotoFavorite[]
+  likes     PhotoLike[]
+  comments  PhotoComment[]
+  favorites PhotoFavorite[]
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -59,9 +59,9 @@ model Photo {
 }
 
 model PhotoLike {
-  id      String @id @default(cuid())
-  photoId String
-  userId  String
+  id        String   @id @default(cuid())
+  photoId   String
+  userId    String
   createdAt DateTime @default(now())
 
   photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
@@ -72,10 +72,10 @@ model PhotoLike {
 }
 
 model PhotoComment {
-  id      String @id @default(cuid())
-  photoId String
-  userId  String
-  content String
+  id        String   @id @default(cuid())
+  photoId   String
+  userId    String
+  content   String
   createdAt DateTime @default(now())
 
   photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
@@ -85,9 +85,9 @@ model PhotoComment {
 }
 
 model PhotoFavorite {
-  id      String @id @default(cuid())
-  photoId String
-  userId  String
+  id        String   @id @default(cuid())
+  photoId   String
+  userId    String
   createdAt DateTime @default(now())
 
   photo Photo @relation(fields: [photoId], references: [id], onDelete: Cascade)
@@ -95,6 +95,48 @@ model PhotoFavorite {
 
   @@unique([photoId, userId])
   @@index([photoId])
+}
+
+model Short {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  videoUrl    String
+  userId      String
+  createdAt   DateTime @default(now())
+
+  likes    ShortLike[]
+  comments ShortComment[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ShortLike {
+  id        String   @id @default(cuid())
+  shortId   String
+  userId    String
+  createdAt DateTime @default(now())
+
+  short Short @relation(fields: [shortId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([shortId, userId])
+  @@index([shortId])
+}
+
+model ShortComment {
+  id        String   @id @default(cuid())
+  shortId   String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+
+  short Short @relation(fields: [shortId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([shortId])
 }
 
 model ResetPasswordToken {
@@ -107,24 +149,27 @@ model ResetPasswordToken {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String?
   nickname      String?
-  email         String       @unique
+  email         String          @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  role          userRole     @default(USER)
+  role          userRole        @default(USER)
   accounts      Account[]
   photos        Photo[]
   likes         PhotoLike[]
   comments      PhotoComment[]
   favorites     PhotoFavorite[]
+  shorts        Short[]
+  shortLikes    ShortLike[]
+  shortComments ShortComment[]
   phoneNumber   String?
   phonePrefixId String?
-  phonePrefix   PhonePrefix? @relation(fields: [phonePrefixId], references: [id])
+  phonePrefix   PhonePrefix?    @relation(fields: [phonePrefixId], references: [id])
   genderId      String?
-  gender        Genders?     @relation(fields: [genderId], references: [id])
+  gender        Genders?        @relation(fields: [genderId], references: [id])
   birthdate     DateTime?
   country       String?
   city          String?
@@ -134,11 +179,11 @@ model User {
   interests     String?
   slogan        String?
   portfolioUrl  String?
-  followers     Int         @default(0)
-  following     Int         @default(0)
-  posts         Int         @default(0)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  followers     Int             @default(0)
+  following     Int             @default(0)
+  posts         Int             @default(0)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 }
 
 model VerificationToken {
