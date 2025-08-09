@@ -22,7 +22,10 @@ const UserArticle = () => {
       setFollowers(session?.user?.followers || 0)
       setFollowing(session?.user?.following || 0)
       setPosts(session?.user?.posts || 0)
-      setMemberSince(session?.user?.createdAt || null)
+      const createdAt = session?.user?.createdAt
+      setMemberSince(
+        createdAt ? new Date(createdAt).toISOString().split('T')[0] : null
+      )
     }
   }, [hydrated, session])
 
