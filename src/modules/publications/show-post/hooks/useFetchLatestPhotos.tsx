@@ -11,6 +11,7 @@ interface Photo {
   hashtags: string[]
   createdAt: string
   shareCount: number
+  liked: boolean
   _count: {
     likes: number
     comments: number
@@ -29,7 +30,12 @@ export const useFetchLatestPhotos = (limit = 10) => {
         const res = await fetch(`/api/stories?limit=${limit}`)
         if (!res.ok) throw new Error('Failed to fetch photos')
         const data = await res.json()
-        setPhotos(data.photos)
+        setPhotos(
+          data.photos.map((photo: any) => ({
+            ...photo,
+            liked: Boolean(photo.liked)
+          }))
+        )
       } catch (err: any) {
         setError(err.message)
       } finally {

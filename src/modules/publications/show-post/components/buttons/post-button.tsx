@@ -10,6 +10,8 @@ interface PostButtonProps {
   iconColor?: string
   iconAlt: string
   iconSize?: number
+  onClick?: () => void
+  isActive?: boolean
 }
 
 export default function PostButton({
@@ -17,7 +19,9 @@ export default function PostButton({
   iconDisplay = '',
   iconColor = '#1D0F0F',
   iconAlt = '',
-  iconSize = 28
+  iconSize = 28,
+  onClick,
+  isActive = false
 }: PostButtonProps) {
   // Calculate the text that will be displayed
   const likes = parseInt(textDisplay, 10)
@@ -29,13 +33,16 @@ export default function PostButton({
     textDisplay = (likes / 1_000_000_000).toFixed(1) + ' B'
   return (
     <div className='w-fit h-fit flex flex-col gap-2 justify-center items-center'>
-      <button className='w-fit h-fit p-3 rounded-full bg-[#F4F4F4] hover:bg-[#EBEAEB] dark:bg-[#848489] dark:hover:bg-[#b8b8bb] dark:text-[#ececed]'>
+      <button
+        onClick={onClick}
+        className='w-fit h-fit p-3 rounded-full bg-[#F4F4F4] hover:bg-[#EBEAEB] dark:bg-[#848489] dark:hover:bg-[#b8b8bb] dark:text-[#ececed]'
+      >
         {iconDisplay === 'like' && (
           <IoIosHeart
             className='drop-shadow-sm w-7 h-7'
             size={iconSize}
             aria-label={iconAlt}
-            color={iconColor}
+            color={isActive ? '#FF0000' : iconColor}
           />
         )}
         {iconDisplay === 'comments' && (
