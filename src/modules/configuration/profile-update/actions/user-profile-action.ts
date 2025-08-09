@@ -1,3 +1,5 @@
+'use server'
+
 // Auth
 import { auth } from '@/lib/auth/auth'
 
@@ -10,7 +12,7 @@ import { getUserById } from '@/data/users/get-user'
 import bcrypt from 'bcryptjs'
 
 export default async function profileAction(values: Record<string, any>) {
-  'use server'
+  
   const session = await auth()
   if (!session?.user?.id) {
     return { error: 'Unauthorized' }
