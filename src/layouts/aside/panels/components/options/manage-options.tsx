@@ -20,18 +20,23 @@ import videosDarkSVG from '@/assets/icons/navigation/inactive/dark-theme/streami
 import videosWhiteSVG from '@/assets/icons/navigation/inactive/light-theme/streaming/videos-light-icon.svg'
 
 // Intl
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useThemeContext } from '@/modules/configuration/settings-panel/hooks/useThemeContext'
+import { useRouter } from 'next/navigation'
 
 const ManageOptions = () => {
   const t = useTranslations('Posts')
   const { activeTheme } = useThemeContext()
+  const locale = useLocale()
+  const router = useRouter()
   return (
     <section className='w-full h-fit flex flex-col'>
       <OptionButton
         label={t('stories')}
         isSelected={false}
-        onClick={() => {}}
+        onClick={() => {
+          router.push(`/${locale}/stories/manage`)
+        }}
         iconSrc={activeTheme === 'light' ? storyWhiteSVG : storyDarkSVG}
         altText={t('stories')}
       />
