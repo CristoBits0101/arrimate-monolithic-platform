@@ -103,10 +103,10 @@ export default function GenderInput({ name, isPending }: GenderInputProps) {
               >
                 {capitalizeFirstWord(
                   t(
-                    `inputs.genders.${
+                    `inputs.genders.${(
                       genders.find((g) => g.id === userGender)?.name ||
                       'reserved'
-                    }`
+                    ).toLowerCase()}`
                   )
                 )}
               </button>
@@ -132,7 +132,9 @@ export default function GenderInput({ name, isPending }: GenderInputProps) {
                       }}
                       className='px-3 py-1 cursor-pointer hover:bg-[#EBEAEB] dark:hover:bg-[#3b3b40] rounded-none capitalized'
                     >
-                      {capitalizeFirstWord(t(`inputs.genders.${name}`))}
+                      {capitalizeFirstWord(
+                        t(`inputs.genders.${name.toLowerCase()}`)
+                      )}
                     </li>
                   ))}
                 </ul>
