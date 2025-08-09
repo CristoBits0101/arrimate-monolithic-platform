@@ -161,3 +161,42 @@
     🕹️             Reset database ➜ npx prisma migrate reset
     🕹️                 Push model ➜ npx prisma db push
     🕹️            Apply migration ➜ npx prisma migrate dev
+
+## 🎨 Estilos y Restricciones de Diseño
+
+### 🎯 Tipografía
+
+| Nivel de Énfasis | Color Hex | Clase Tailwind  |
+|------------------|-----------|-----------------|
+| Alto             | `#1b1a1f` | `font-semibold` |
+| Medio            | `#26272c` | `font-medium`   |
+| Bajo             | `#3b3b40` | `font-light`    |
+
+### 🔵 Paleta de Componentes (Azul)
+
+| Uso         | Color Hex |
+|-------------|-----------|
+| Blanco      | `#FFFFFF` |
+| Fondo Claro | `#F0F4F9` |
+| Azul Base   | `#1a73e8` |
+| Azul Oscuro | `#174ea6` |
+
+### 🟢 Paleta de SVG (Verde)
+
+| Uso          | Color Hex |
+|--------------|-----------|
+| Verde Valido | `#22c55e` |
+
+### 🔴 Paleta de SVG (Rojo)
+
+| Uso         | Color Hex |
+|-------------|-----------|
+| Rojo Alerta | `#e45546` |
+
+### ⚫ Paleta de Separadores (Gris)
+
+| Uso              | Color Hex   |
+|------------------|-------------|
+| Base             | `#B8B8BB`   |
+| Transparente 10% | `#B8B8BB25` |
+| Transparente 30% | `#B8B8BB50` |
