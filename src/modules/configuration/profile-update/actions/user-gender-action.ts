@@ -1,9 +1,8 @@
-'use server'
-
 // Prisma
 import { db } from '@/lib/orm/prisma-client'
 
 export async function getGenders() {
+  'use server'
   try {
     // Fetch all genders from the database
     const genders = await db.genders.findMany({

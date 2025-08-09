@@ -1,12 +1,11 @@
-'use server'
-
 // Auth
 import { auth } from '@/lib/auth/auth'
 
 // Database
 import { db } from '@/lib/orm/prisma-client'
 
-export default async function getUserProfileAction () {
+export default async function getUserProfileAction() {
+  'use server'
   const session = await auth()
   if (!session?.user?.id) {
     return null
