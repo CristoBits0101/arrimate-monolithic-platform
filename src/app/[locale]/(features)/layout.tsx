@@ -13,7 +13,7 @@ export default function FeaturesLayout({
       {/* Header layout */}
       <Header />
       {/* Features pages */}
-      <main className='min-w-52 min-h-screen max-h-fit h-auto col-span-1'>
+      <main className='min-w-52 min-h-screen max-h-fit h-auto col-span-1 md:col-start-2'>
         {children}
       </main>
       {/* Aside layout  */}
