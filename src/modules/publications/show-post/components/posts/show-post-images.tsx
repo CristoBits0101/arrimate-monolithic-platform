@@ -87,7 +87,7 @@ export default function ShowPostImages() {
               intereses={randomUtils.getRandomInterests()}
               slogan={randomUtils.getRandomSlogan()}
               date={randomUtils.getRandomTime()}
-              location={randomUtils.getRandomCapital()}
+              location={photo.location || randomUtils.getRandomCapital()}
               trending={randomUtils.getRandomBoolean()}
               followers={randomUtils.getRandomFollowers()}
               reliable={randomUtils.getRandomBoolean()}

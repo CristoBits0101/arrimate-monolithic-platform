@@ -9,6 +9,7 @@ interface Photo {
   imageUrl: string
   photographer: string
   hashtags: string[]
+  location?: string | null
   createdAt: string
   shareCount: number
   liked: boolean
